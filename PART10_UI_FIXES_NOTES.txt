@@ -1,0 +1,24 @@
+PART 10 — UI FIXES FROM YOUR LATEST FEEDBACK
+
+Base used:
+- Reverted from the disliked premium-layer card styling back to the cleaner previous base.
+
+Main fixes included:
+1. Deep Tables page rebuilt:
+   - no horizontal scroll tables
+   - 2 focused tables at a time
+   - holdings table has selector buttons for metric groups
+   - operations table has selector buttons for table groups
+   - compact / comfortable density toggle
+   - selected-row detail panel instead of huge overflow tables
+
+2. Security Drill-Down rebuilt:
+   - proper single-asset selector added
+   - selected asset controls now live on the page itself
+   - ratio group tabs added
+   - selected asset transactions table
+   - selected asset tax-lots table
+   - softer section color differentiation
+
+You should replace your running project with this build and restart dev server.
+If your dependencies are already installed in the same project folder, you do NOT need npm install again.

@@ -1,0 +1,14 @@
+PART 11
+
+Changes included:
+- fixed CorrelationHeatmap React key warning
+- Ratio Center now focuses on portfolio-level + both-level metrics only
+- Ratio Center uses category buttons and KPI-style metric cards
+- Deep Tables now includes single-security analysis inside the page
+- Deep Tables uses category buttons for security-level + both-level ratios calculated at security view
+- Deep Tables keeps two focused tables and a selected-security analysis panel
+- Header portfolio control now has an edit pencil button
+- Portfolio rename flow added via modal
+
+Save/extract this folder as:
+<your project root>/part11build/

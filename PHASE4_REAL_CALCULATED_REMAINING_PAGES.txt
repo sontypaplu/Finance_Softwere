@@ -1,0 +1,20 @@
+PHASE 4 — REAL CALCULATED REMAINING PAGES
+
+This pack extends the previous live/calculated phases by replacing more seed-heavy terminal pages with SQLite-backed calculated route logic where data is available, while preserving fallback seeds for missing session/provider/data conditions.
+
+Included route upgrades:
+- /api/terminal/risk
+- /api/terminal/planning
+- /api/terminal/rebalancing
+- /api/terminal/reports
+
+Service upgrades:
+- lib/services/terminal-data-service.ts
+- lib/services/report-service.ts
+
+Notes:
+- Risk now derives allocation, sector exposure, factor exposure, correlation matrix, and scenario impacts from current holdings/history where available.
+- Planning now uses real income-center derived cashflow and liabilities, with goals remaining modeled placeholders until a real goal model is added.
+- Rebalancing now derives current sleeve weights, target drifts, and suggested trade actions from live holdings.
+- Reports now reads report rows from the database when available and falls back to demo report seeds otherwise.
+- This is a real calculated-data phase, but still not the final institutional-grade engine.

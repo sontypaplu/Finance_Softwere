@@ -1,0 +1,28 @@
+REAL DATA PHASE — CALCULATED SQLITE-BACKED TERMINAL PAGES
+
+Save/extract this folder into:
+<your project root>/livephase/
+
+This phase replaces more seeded terminal routes with calculated SQLite-backed services where workspace/session context exists.
+
+Updated routes:
+- /api/terminal/portfolio-analytics
+- /api/terminal/deep-tables
+- /api/terminal/security-drilldown
+- /api/terminal/ratio-center
+- /api/terminal/tax-center
+- /api/terminal/income-center
+- /api/terminal/assets/[symbol]
+
+New supporting files:
+- lib/services/terminal-data-service.ts
+- lib/calculations/ratios.ts
+- lib/utils/finance-format.ts
+
+Updated support file:
+- lib/services/security-service.ts
+
+Notes:
+- These pages now prefer real workspace/portfolio transactions, holdings, alerts, quotes, and history.
+- Where no real workspace/session/data exists, they still fall back safely to seeded payloads.
+- Price history and quote quality still depend on the provider layer, so this phase is real-data-backed but not final institutional-grade market data.

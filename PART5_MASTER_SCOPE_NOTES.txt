@@ -1,0 +1,35 @@
+PART 5 — MASTER SCOPE EXPANSION
+
+Save this folder as:
+<your project root>/part5build/
+
+New major pages added:
+- /terminal/portfolio-analytics
+- /terminal/security-drilldown
+- /terminal/income-center
+- /terminal/ratio-center
+- /terminal/tax-center
+
+New API routes added:
+- /api/terminal/portfolio-analytics
+- /api/terminal/security-drilldown
+- /api/terminal/income-center
+- /api/terminal/ratio-center
+- /api/terminal/tax-center
+
+New support files:
+- components/terminal/advanced-charts.tsx
+- components/terminal/portfolio-analytics-client.tsx
+- components/terminal/security-drilldown-client.tsx
+- components/terminal/income-center-client.tsx
+- components/terminal/ratio-center-client.tsx
+- components/terminal/tax-center-client.tsx
+- lib/types/master-scope.ts
+- lib/data/master-scope-seed.ts
+
+Updated navigation/search files:
+- components/terminal/sidebar.tsx
+- components/terminal/terminal-shell.tsx
+- lib/data/terminal-ops-seed.ts
+
+This layer focuses on completing the visual master scope with many smaller premium surfaces instead of one oversized table.

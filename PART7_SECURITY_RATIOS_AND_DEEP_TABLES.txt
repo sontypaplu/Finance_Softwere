@@ -1,0 +1,42 @@
+PART 7 — SECURITY RATIOS + DEEP TABLES
+
+New coverage in this pass:
+- individual-security ratio groups added to asset pages
+- new deep tables center route
+
+New route:
+- /terminal/deep-tables
+
+Asset pages now include:
+- return metrics
+- risk metrics
+- risk-adjusted ratios
+- income / tax / contribution metrics
+
+Deep tables center includes separate tables for:
+- holdings master
+- transaction ledger
+- tax lots
+- performance attribution
+- risk table
+- cash flow & income table
+- debt & liabilities table
+- alerts table
+
+Updated files:
+- components/terminal/asset-detail-client.tsx
+- components/terminal/sidebar.tsx
+- components/terminal/terminal-shell.tsx
+- lib/types/terminal-ops.ts
+- lib/data/terminal-ops-seed.ts
+
+New files:
+- components/terminal/deep-tables-client.tsx
+- lib/types/deep-tables.ts
+- lib/data/deep-tables-seed.ts
+- app/(app)/terminal/deep-tables/page.tsx
+- app/api/terminal/deep-tables/route.ts
+
+Important:
+This still uses the separated seed/API structure.
+UI is updated and shaped for real backend calculation later, but this pass does not connect to your real portfolio engine yet.

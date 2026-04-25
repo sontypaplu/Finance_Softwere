@@ -1,0 +1,40 @@
+PART 6 — RATIO + CHART COVERAGE PASS
+
+New route:
+- /terminal/chart-studio
+
+Expanded:
+- /terminal/ratio-center now includes a much broader ratio library from the user's master list.
+
+Added charts/graphs coverage for:
+- portfolio value over time
+- cumulative return vs benchmark
+- rolling 1M / 3M / 6M / 1Y returns
+- daily P&L bars
+- monthly return heatmap
+- drawdown chart
+- realized vs unrealized gains
+- income vs capital appreciation split
+- contribution waterfall
+- asset allocation treemap
+- sector allocation
+- geography allocation
+- market-cap allocation
+- account allocation
+- strategy allocation
+- top holdings concentration
+- correlation heatmap
+- risk contribution chart
+- beta exposure chart
+- drawdown distribution
+- scenario stress chart
+- monthly income vs expense
+- savings rate trend
+- debt payoff schedule
+- cash runway
+- emergency fund trajectory
+- dividend / interest income timeline
+- upcoming obligations cards
+- goal funding progress
+- salary-to-investment funnel
+- income -> expenses -> savings -> investments flow cards

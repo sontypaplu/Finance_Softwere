@@ -1,0 +1,34 @@
+PART 8 — UI CLEANUP BEFORE BACKEND
+
+Save this folder as:
+<your project root>/part8build/
+
+This pass focuses on UI cleanup before any calculation/backend work.
+
+Main changes:
+- top header Portfolio menu replaced with a real multi-portfolio switcher
+- one login can manage multiple portfolios inside the same workspace
+- default portfolio auto-created as Portfolio 1
+- current limit is 2 portfolios, controlled in:
+  components/terminal/portfolio-workspace-provider.tsx
+- add-new-portfolio flow with name + notes modal
+- transaction entry form rebuilt with more complete fields
+- add-new-security flow added to transaction form
+- active portfolio also shown in the header
+- asset page cleaned up so notes are not duplicated and the main curve is normalized
+
+Main changed/new files:
+- app/layout.tsx
+- components/providers/app-providers.tsx
+- components/terminal/portfolio-workspace-provider.tsx
+- components/terminal/portfolio-switcher.tsx
+- components/terminal/terminal-shell.tsx
+- components/terminal/transaction-entry-client.tsx
+- components/terminal/asset-detail-client.tsx
+- lib/types/workspace.ts
+- lib/types/terminal-ops.ts
+- lib/data/terminal-ops-seed.ts
+
+Important:
+- this is still UI-first and local-state based for portfolio/security creation
+- it is structured so real backend wiring can replace these flows later
