@@ -1,0 +1,238 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum AppRole {
+  SUPER_ADMIN
+  OPS_ADMIN
+  FINANCE_CONTROLLER
+  COMPLIANCE_MANAGER
+  SUPPORT_AGENT
+  PORTFOLIO_MANAGER
+  ANALYST
+}
+
+enum WorkspaceMemberRole {
+  OWNER
+  ADMIN
+  ANALYST
+  VIEWER
+  AUDITOR
+}
+
+enum TransactionType {
+  BUY
+  SELL
+  DIVIDEND
+  INTEREST
+  FEE
+  TAX
+  DEPOSIT
+  WITHDRAWAL
+  SPLIT
+  BONUS
+}
+
+enum TransactionStatus {
+  DRAFT
+  POSTED
+  REVERSED
+}
+
+model User {
+  id              String            @id @default(cuid())
+  name            String
+  email           String            @unique
+  passwordHash    String
+  role            AppRole           @default(ANALYST)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  emailVerifiedAt DateTime?
+  mfaEnabled      Boolean           @default(false)
+  workspacesOwned Workspace[]       @relation("WorkspaceOwner")
+  memberships     WorkspaceMember[]
+  transactions    Transaction[]     @relation("TransactionCreatedBy")
+  auditLogs       AuditLog[]
+  reports         Report[]          @relation("ReportGeneratedBy")
+}
+
+model Workspace {
+  id          String            @id @default(cuid())
+  name        String
+  ownerId     String
+  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  members     WorkspaceMember[]
+  portfolios  Portfolio[]
+  benchmarks  Benchmark[]
+  alerts      Alert[]
+  auditLogs   AuditLog[]
+  reports     Report[]
+}
+
+model WorkspaceMember {
+  userId      String
+  workspaceId String
+  role        WorkspaceMemberRole
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@id([userId, workspaceId])
+}
+
+model Portfolio {
+  id            String        @id @default(cuid())
+  workspaceId   String
+  name          String
+  baseCurrency  String        @default("USD")
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  workspace     Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  accounts      Account[]
+  transactions  Transaction[]
+  holdingLots   HoldingLot[]
+  alerts        Alert[]
+  reports       Report[]
+}
+
+model Account {
+  id          String        @id @default(cuid())
+  portfolioId String
+  name        String
+  broker      String?
+  accountType String?
+  currency    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  portfolio   Portfolio     @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  holdingLots  HoldingLot[]
+}
+
+model Security {
+  id          String        @id @default(cuid())
+  symbol      String        @unique
+  name        String
+  isin        String?
+  exchange    String?
+  assetClass  String
+  sector      String?
+  industry    String?
+  currency    String
+  country     String?
+  transactions Transaction[]
+  holdingLots  HoldingLot[]
+  priceHistory PriceHistory[]
+}
+
+model Transaction {
+  id             String            @id @default(cuid())
+  portfolioId    String
+  accountId      String
+  securityId     String?
+  type           TransactionType
+  tradeDate      DateTime
+  settlementDate DateTime?
+  quantity       Decimal?
+  price          Decimal?
+  grossAmount    Decimal?
+  fees           Decimal?          @default(0)
+  taxes          Decimal?          @default(0)
+  netAmount      Decimal?
+  currency       String
+  fxRateToBase   Decimal?
+  notes          String?
+  status         TransactionStatus @default(DRAFT)
+  createdById    String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  portfolio      Portfolio         @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  account        Account           @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  security       Security?         @relation(fields: [securityId], references: [id], onDelete: SetNull)
+  createdBy      User              @relation("TransactionCreatedBy", fields: [createdById], references: [id])
+}
+
+model HoldingLot {
+  id               String   @id @default(cuid())
+  portfolioId      String
+  accountId        String
+  securityId       String
+  acquisitionDate  DateTime
+  quantityOpen     Decimal
+  quantityOriginal Decimal
+  costBasis        Decimal
+  currency         String
+  portfolio        Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  account          Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  security         Security  @relation(fields: [securityId], references: [id], onDelete: Cascade)
+}
+
+model PriceHistory {
+  securityId String
+  date       DateTime
+  close      Decimal
+  currency   String
+  source     String?
+  security   Security @relation(fields: [securityId], references: [id], onDelete: Cascade)
+
+  @@id([securityId, date])
+}
+
+model Benchmark {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String
+  currency    String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Alert {
+  id          String    @id @default(cuid())
+  workspaceId String
+  portfolioId String?
+  type        String
+  severity    String
+  title       String
+  message     String
+  status      String
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  portfolio   Portfolio? @relation(fields: [portfolioId], references: [id], onDelete: SetNull)
+}
+
+model AuditLog {
+  id          String    @id @default(cuid())
+  workspaceId String?
+  userId      String?
+  action      String
+  entityType  String
+  entityId    String?
+  beforeJson  Json?
+  afterJson   Json?
+  createdAt   DateTime  @default(now())
+  ipAddress   String?
+  userAgent   String?
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Report {
+  id            String    @id @default(cuid())
+  workspaceId   String
+  portfolioId   String
+  type          String
+  status        String
+  format        String
+  createdAt     DateTime  @default(now())
+  generatedById String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  generatedBy   User      @relation("ReportGeneratedBy", fields: [generatedById], references: [id])
+}
