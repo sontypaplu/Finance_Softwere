@@ -1,0 +1,35 @@
+import type { KPIItem } from '@/lib/types/terminal-pages';
+
+export type ChartStudioPayload = {
+  hero: KPIItem[];
+  cumulative: { month: string; portfolio: number; benchmark: number }[];
+  rolling: { month: string; oneMonth: number; threeMonth: number; sixMonth: number; oneYear: number }[];
+  dailyPnl: { day: string; value: number }[];
+  realizedVsUnrealized: { label: string; realized: number; unrealized: number }[];
+  incomeVsCapital: { name: string; value: number }[];
+  waterfall: { name: string; value: number }[];
+  assetAllocation: { name: string; size: number }[];
+  sectorAllocation: { name: string; value: number }[];
+  geographyAllocation: { name: string; value: number }[];
+  marketCapAllocation: { name: string; value: number }[];
+  accountAllocation: { name: string; value: number }[];
+  strategyAllocation: { name: string; value: number }[];
+  topHoldings: { name: string; value: number }[];
+  correlation: { labels: string[]; matrix: number[][] };
+  riskContribution: { name: string; value: number }[];
+  betaExposure: { name: string; value: number }[];
+  drawdownDistribution: { bucket: string; value: number }[];
+  scenarioStress: { name: string; value: number }[];
+  monthlyIncomeExpense: { month: string; income: number; expenses: number; invested: number }[];
+  savingsRate: { month: string; rate: number }[];
+  debtPayoff: { month: string; home: number; auto: number; credit: number }[];
+  cashRunway: { month: string; value: number }[];
+  emergencyFund: { month: string; value: number }[];
+  dividendInterestTimeline: { month: string; dividends: number; interest: number; rent: number }[];
+  obligations: { title: string; due: string; amount: string; type: string }[];
+  goals: { title: string; funded: number; target: string; current: string }[];
+  funnel: { stage: string; value: number }[];
+  sankey: { from: string; to: string; value: string }[];
+  heatmap: { year: string; months: { label: string; value: number }[] }[];
+  drawdown: { month: string; portfolio: number; benchmark: number }[];
+};

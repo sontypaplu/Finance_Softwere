@@ -1,0 +1,10 @@
+export type DeepTablesPayload = {
+  holdingsMaster: { instrument: string; account: string; assetClass: string; sector: string; geography: string; strategy: string; quantity: string; avgCost: string; ltp: string; marketValue: string; weight: string; dayChangePct: string; dayChangeValue: string; unrealized: string; realized: string; totalReturn: string; dividendYield: string; yieldOnCost: string; beta: string; volatility: string; sharpe: string; sortino: string; maxDrawdown: string; correlation: string; contributionReturn: string; contributionRisk: string; concentration: string; rebalanceGap: string; taxStatus: string; stalePrice: string }[];
+  transactionLedger: { date: string; account: string; symbol: string; txnType: string; units: string; executionPrice: string; fees: string; taxes: string; fxRate: string; broker: string; strategy: string; tags: string; notes: string }[];
+  taxLots: { security: string; lotDate: string; quantityRemaining: string; costBasis: string; currentValue: string; holdingPeriod: string; unrealizedGain: string; classification: string; harvestFlag: string }[];
+  attribution: { bucket: string; byAsset: string; byAssetClass: string; bySector: string; byGeography: string; byStrategy: string; byAccount: string; benchmarkRelative: string }[];
+  riskTable: { sleeve: string; volatility: string; downsideDeviation: string; var95: string; cvar95: string; beta: string; alpha: string; informationRatio: string; trackingError: string; rSquared: string; skewness: string; kurtosis: string; drawdownDuration: string; recoveryTime: string }[];
+  cashflowIncome: { month: string; salary: string; business: string; rent: string; dividend: string; interest: string; fixedExpenses: string; variableExpenses: string; investmentOutflows: string; debtPayments: string; monthlySavings: string; freeCashFlow: string; deploymentRate: string }[];
+  liabilities: { lender: string; principalOutstanding: string; interestRate: string; emi: string; tenureLeft: string; debtServiceRatio: string; prepaymentImpact: string }[];
+  alerts: { type: string; title: string; severity: string; detail: string; action: string }[];
+};
